@@ -1,0 +1,31 @@
+{
+    "name": "exactsports/spotify",
+    "description": "Package for communication with Spotify",
+    "authors": [
+        {
+            "name": "Viktor Donchenko",
+            "email": "viktor.donchenko@exactsports.com"
+        }
+    ],
+    "require-dev": {
+        "orchestra/testbench": "^9.1",
+        "mockery/mockery": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "EXACTSports\\Spotify\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "EXACTSports\\Spotify\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "EXACTSports\\Spotify\\SpotifyServiceProvider"
+            ]
+        }
+    }
+}
