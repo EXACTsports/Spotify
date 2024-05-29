@@ -29,6 +29,10 @@ class SpotifyServiceProvider extends ServiceProvider
 
     protected function registerFacades(): void
     {
+
+        $this->app->singleton('SpotifyHttpClient', function ($app) {
+            return new \EXACTSports\Spotify\HttpClient();
+        });
         $this->app->singleton('Spotify', function ($app) {
             return new \EXACTSports\Spotify\Spotify();
         });

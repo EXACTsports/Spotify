@@ -13,18 +13,18 @@
     },
     "autoload": {
         "psr-4": {
-            "EXACTSports\\Spotify\\": "src/"
+            "Exactsports\\Spotify\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "EXACTSports\\Spotify\\Tests\\": "tests/"
+            "Exactsports\\Spotify\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "EXACTSports\\Spotify\\SpotifyServiceProvider"
+                "Exactsports\\Spotify\\SpotifyServiceProvider"
             ]
         }
     }
