@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @method static getApiCall(string $endpoint, array $headers)
+ * @method static postApiCall(string $endpoint, array $headers, array $bodyParams)
  * @method static postAccountCall(string $endpoint, array $headers, array $bodyParams)
  */
 class SpotifyHttpClient extends Facade

@@ -43,4 +43,20 @@ class HttpClient
         $response = json_decode($stream->read($size), true, 512, JSON_THROW_ON_ERROR);
         return new BaseSpotifyResponse($response);
     }
+
+    /**
+     * @throws \Throwable
+     */
+    public function postApiCall(string $endpoint, array $headers, array $bodyParams = []): ResponseInterface
+    {
+        $client = new Client(['base_uri' => $this->baseApiUrl]);
+        $response = $client->post($endpoint, [
+            'headers' => $headers,
+            'body' => json_encode($bodyParams, JSON_THROW_ON_ERROR)
+        ]);
+        $stream = $response->getBody();
+        $size = $stream->getSize();
+        $response = json_decode($stream->read($size), true, 512, JSON_THROW_ON_ERROR);
+        return new BaseSpotifyResponse($response);
+    }
 }

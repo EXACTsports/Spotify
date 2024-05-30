@@ -6,8 +6,10 @@ use EXACTSports\Spotify\Client\SpotifyClient;
 use EXACTSports\Spotify\Exceptions\MissingSpotifyConfigurationException;
 use EXACTSports\Spotify\Exceptions\SpotifyConnectionException;
 use EXACTSports\Spotify\Models\SpotifyUserInterface;
+use EXACTSports\Spotify\Request\Dto\NewPlaylistDto;
 use EXACTSports\Spotify\Request\Dto\SearchTrackRequestDto;
 use EXACTSports\Spotify\Request\Dto\TopItemsRequestDto;
+use EXACTSports\Spotify\Request\Dto\TrackToPlaylistDto;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
 use EXACTSports\Spotify\Response\TracksResponse;
 
@@ -57,23 +59,40 @@ class Spotify
         return $this->spotifyClient->searchTracks($requestDto);
     }
 
-    public function getArtist(string $id): void
+    /**
+     * @throws MissingSpotifyConfigurationException
+     */
+    public function getArtist(string $id): BaseSpotifyResponse
     {
-        //@todo add implementation
+        $this->validateUserInterface();
+        return $this->spotifyClient->getArtist($id);
     }
 
-    public function getTrack(string $id): void
+    /**
+     * @throws MissingSpotifyConfigurationException
+     */
+    public function getTrack(string $id): BaseSpotifyResponse
     {
-        //@todo add implementation
+        $this->validateUserInterface();
+        return $this->spotifyClient->getTrack($id);
     }
 
-    public function addTracksToPlaylist(): void
+    /**
+     * @throws MissingSpotifyConfigurationException
+     */
+    public function addTracksToPlaylist(TrackToPlaylistDto $trackToPlaylistDto): BaseSpotifyResponse
     {
-        //@todo add implementation
+        $this->validateUserInterface();
+        return $this->spotifyClient->addTrackToPlaylist($trackToPlaylistDto);
     }
-    public function createNewPlaylist(): void
+
+    /**
+     * @throws MissingSpotifyConfigurationException
+     */
+    public function createNewPlaylist(NewPlaylistDto $newPlaylistDto): BaseSpotifyResponse
     {
-        //@todo add implementation
+        $this->validateUserInterface();
+        return $this->spotifyClient->addNewPlaylist($newPlaylistDto);
     }
 
     /**

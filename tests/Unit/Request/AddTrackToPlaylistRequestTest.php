@@ -4,30 +4,29 @@ namespace EXACTSports\Spotify\Tests\Unit\Request;
 
 use EXACTSports\Spotify\Client\SpotifyHeaders;
 use EXACTSports\Spotify\Facade\SpotifyHttpClient;
+use EXACTSports\Spotify\Request\AddTrackToPlaylistRequest;
 use EXACTSports\Spotify\Request\Dto\TopItemsRequestDto;
+use EXACTSports\Spotify\Request\Dto\TrackToPlaylistDto;
 use EXACTSports\Spotify\Request\TopItemsRequest;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
 use EXACTSports\Spotify\Tests\TestCase;
 
-class TopItemsRequestTest extends TestCase
+class AddTrackToPlaylistRequestTest extends TestCase
 {
-    private ?TopItemsRequest $topItemsRequest = null;
+    private ?AddTrackToPlaylistRequest $request = null;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $topItemsRequestDto = new TopItemsRequestDto();
-        $topItemsRequestDto->limit = 10;
-        $topItemsRequestDto->offset = 0;
-        $topItemsRequestDto->timeRange = 'medium_term';
+        $dto = new TrackToPlaylistDto('playlistId', ['some-uri', 1]);
         $spotifyHeaders = new SpotifyHeaders('Bearer', 'testtoken');
-        $this->topItemsRequest = new TopItemsRequest($topItemsRequestDto, $spotifyHeaders);
+        $this->request = new AddTrackToPlaylistRequest($dto, $spotifyHeaders);
     }
     public function testRequestReturnExpectedResult(): void
     {
         $mockResponse = new BaseSpotifyResponse(['some'=>'data']);
-        SpotifyHttpClient::shouldReceive('getApiCall')->once()->andReturn($mockResponse);
-        $response = $this->topItemsRequest->execute();
+        SpotifyHttpClient::shouldReceive('postApiCall')->once()->andReturn($mockResponse);
+        $response = $this->request->execute();
         $this->assertSame(['some'=>'data'], $response->getData());
     }
 }

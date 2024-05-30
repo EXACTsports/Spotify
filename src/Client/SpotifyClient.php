@@ -5,8 +5,14 @@ namespace EXACTSports\Spotify\Client;
 use EXACTSports\Spotify\Exceptions\SpotifyConnectionException;
 use EXACTSports\Spotify\Exceptions\SpotifyTokenExpiredException;
 use EXACTSports\Spotify\Models\SpotifyUserInterface;
+use EXACTSports\Spotify\Request\AddTrackToPlaylistRequest;
+use EXACTSports\Spotify\Request\CreateNewPlaylistRequest;
+use EXACTSports\Spotify\Request\Dto\NewPlaylistDto;
 use EXACTSports\Spotify\Request\Dto\SearchTrackRequestDto;
 use EXACTSports\Spotify\Request\Dto\TopItemsRequestDto;
+use EXACTSports\Spotify\Request\Dto\TrackToPlaylistDto;
+use EXACTSports\Spotify\Request\GetArtistRequest;
+use EXACTSports\Spotify\Request\GetTrackRequest;
 use EXACTSports\Spotify\Request\RefreshTokenRequest;
 use EXACTSports\Spotify\Request\SearchTrackRequest;
 use EXACTSports\Spotify\Request\TopItemsRequest;
@@ -23,7 +29,7 @@ class SpotifyClient
     {
         try {
             return (new TopItemsRequest($requestDto, $this->getHeaders($this->getUser())))->execute();
-        } catch (SpotifyTokenExpiredException $exception) {
+        } catch (SpotifyTokenExpiredException) {
             return (new TopItemsRequest($requestDto, $this->getHeaders($this->getUser(), true)))->execute();
         }
 
@@ -33,10 +39,46 @@ class SpotifyClient
     {
         try {
             $data = (new SearchTrackRequest($requestDto, $this->getHeaders($this->getUser())))->execute()->getData();
-        } catch (SpotifyTokenExpiredException $exception) {
+        } catch (SpotifyTokenExpiredException) {
             $data = (new SearchTrackRequest($requestDto, $this->getHeaders($this->getUser(), true)))->execute()->getData();
         }
         return new TracksResponse(\Arr::get($data, 'tracks.items', []));
+    }
+
+    public function getArtist(string $id): BaseSpotifyResponse
+    {
+        try {
+            return (new GetArtistRequest($id, $this->getHeaders($this->getUser())))->execute();
+        } catch (SpotifyTokenExpiredException) {
+            return (new GetArtistRequest($id, $this->getHeaders($this->getUser(), true)))->execute();
+        }
+    }
+
+    public function getTrack(string $id): BaseSpotifyResponse
+    {
+        try {
+            return (new GetTrackRequest($id, $this->getHeaders($this->getUser())))->execute();
+        } catch (SpotifyTokenExpiredException) {
+            return (new GetTrackRequest($id, $this->getHeaders($this->getUser(), true)))->execute();
+        }
+    }
+
+    public function addNewPlaylist(NewPlaylistDto $newPlaylistDto): BaseSpotifyResponse
+    {
+        try {
+            return (new CreateNewPlaylistRequest($newPlaylistDto, $this->getHeaders($this->getUser())))->execute();
+        } catch (SpotifyTokenExpiredException) {
+            return (new CreateNewPlaylistRequest($newPlaylistDto, $this->getHeaders($this->getUser(), true)))->execute();
+        }
+    }
+
+    public function addTrackToPlaylist(TrackToPlaylistDto $trackToPlaylistDto): BaseSpotifyResponse
+    {
+        try {
+            return (new AddTrackToPlaylistRequest($trackToPlaylistDto, $this->getHeaders($this->getUser())))->execute();
+        } catch (SpotifyTokenExpiredException) {
+            return (new AddTrackToPlaylistRequest($trackToPlaylistDto, $this->getHeaders($this->getUser(), true)))->execute();
+        }
     }
 
     private function getUser(): SpotifyUserInterface
@@ -60,4 +102,6 @@ class SpotifyClient
         }
         throw new SpotifyConnectionException("User doesn't have access token or refresh access token");
     }
+
+
 }
