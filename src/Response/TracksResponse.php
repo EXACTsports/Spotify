@@ -2,7 +2,7 @@
 
 namespace EXACTSports\Spotify\Response;
 
-class TracksResponse implements ResponseInterface
+readonly class TracksResponse implements ResponseInterface
 {
     public function __construct(private array $tracks = [])
     {

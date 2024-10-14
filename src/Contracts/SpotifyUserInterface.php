@@ -1,6 +1,6 @@
 <?php
 
-namespace EXACTSports\Spotify\Models;
+namespace EXACTSports\Spotify\Contracts;
 
 interface SpotifyUserInterface
 {

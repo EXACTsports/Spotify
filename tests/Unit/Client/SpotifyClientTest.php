@@ -5,13 +5,14 @@ namespace EXACTSports\Spotify\Tests\Unit\Client;
 use EXACTSports\Spotify\Client\SpotifyClient;
 use EXACTSports\Spotify\Exceptions\SpotifyTokenExpiredException;
 use EXACTSports\Spotify\Facade\SpotifyHttpClient;
-use EXACTSports\Spotify\Models\SpotifyUserInterface;
+use EXACTSports\Spotify\Contracts\SpotifyUserInterface;
 use EXACTSports\Spotify\Request\Dto\NewPlaylistDto;
 use EXACTSports\Spotify\Request\Dto\SearchTrackRequestDto;
 use EXACTSports\Spotify\Request\Dto\TopItemsRequestDto;
 use EXACTSports\Spotify\Request\Dto\TrackToPlaylistDto;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
 use EXACTSports\Spotify\Tests\TestCase;
+use Illuminate\Support\Facades\Auth;
 use Mockery\MockInterface;
 
 class SpotifyClientTest extends TestCase
@@ -91,7 +92,7 @@ class SpotifyClientTest extends TestCase
     private function mockBaseData(): MockInterface
     {
         $userMock = $this->mock(SpotifyUserInterface::class);
-        \Auth::shouldReceive('user')->andReturn($userMock);
+        Auth::shouldReceive('user')->andReturn($userMock);
         $userMock->shouldReceive('getSpotifyId')->andReturn("spotifyId");
         $userMock->shouldReceive('getSpotifyAccessToken')->andReturn("accessToken");
         return $userMock;

@@ -7,24 +7,28 @@
             "email": "viktor.donchenko@exactsports.com"
         }
     ],
+    "require": {
+        "illuminate/support": ">=10.0"
+    },
     "require-dev": {
+        "roave/security-advisories": "dev-latest",
         "orchestra/testbench": "^9.1",
         "mockery/mockery": "^1.6"
     },
     "autoload": {
         "psr-4": {
-            "Exactsports\\Spotify\\": "src/"
+            "EXACTSports\\Spotify\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Exactsports\\Spotify\\Tests\\": "tests/"
+            "EXACTSports\\Spotify\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Exactsports\\Spotify\\SpotifyServiceProvider"
+                "EXACTSports\\Spotify\\SpotifyServiceProvider"
             ]
         }
     }

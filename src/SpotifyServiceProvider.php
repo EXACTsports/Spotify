@@ -31,10 +31,10 @@ class SpotifyServiceProvider extends ServiceProvider
     {
 
         $this->app->singleton('SpotifyHttpClient', function ($app) {
-            return new \EXACTSports\Spotify\HttpClient();
+            return new \EXACTSports\Spotify\HttpClientService();
         });
         $this->app->singleton('Spotify', function ($app) {
-            return new \EXACTSports\Spotify\Spotify();
+            return new \EXACTSports\Spotify\SpotifyService();
         });
     }
     protected function registerPublishing(): void
