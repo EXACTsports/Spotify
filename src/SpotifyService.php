@@ -5,7 +5,7 @@ namespace EXACTSports\Spotify;
 use EXACTSports\Spotify\Client\SpotifyClient;
 use EXACTSports\Spotify\Exceptions\MissingSpotifyConfigurationException;
 use EXACTSports\Spotify\Exceptions\SpotifyConnectionException;
-use EXACTSports\Spotify\Models\SpotifyUserInterface;
+use EXACTSports\Spotify\Contracts\SpotifyUserInterface;
 use EXACTSports\Spotify\Request\Dto\NewPlaylistDto;
 use EXACTSports\Spotify\Request\Dto\SearchTrackRequestDto;
 use EXACTSports\Spotify\Request\Dto\TopItemsRequestDto;
@@ -13,7 +13,7 @@ use EXACTSports\Spotify\Request\Dto\TrackToPlaylistDto;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
 use EXACTSports\Spotify\Response\TracksResponse;
 
-class Spotify
+class SpotifyService
 {
 
     private SpotifyClient $spotifyClient;

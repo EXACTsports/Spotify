@@ -5,7 +5,7 @@ namespace EXACTSports\Spotify\Request;
 use EXACTSports\Spotify\Client\SpotifyHeaders;
 use EXACTSports\Spotify\Exceptions\SpotifyConnectionException;
 use EXACTSports\Spotify\Facade\SpotifyHttpClient;
-use EXACTSports\Spotify\Models\SpotifyUserInterface;
+use EXACTSports\Spotify\Contracts\SpotifyUserInterface;
 use EXACTSports\Spotify\Response\RefreshTokenResponse;
 
 final readonly class RefreshTokenRequest implements RequestInterface

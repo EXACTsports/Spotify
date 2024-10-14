@@ -4,7 +4,7 @@ namespace EXACTSports\Spotify\Client;
 
 use EXACTSports\Spotify\Exceptions\SpotifyConnectionException;
 use EXACTSports\Spotify\Exceptions\SpotifyTokenExpiredException;
-use EXACTSports\Spotify\Models\SpotifyUserInterface;
+use EXACTSports\Spotify\Contracts\SpotifyUserInterface;
 use EXACTSports\Spotify\Request\AddTrackToPlaylistRequest;
 use EXACTSports\Spotify\Request\CreateNewPlaylistRequest;
 use EXACTSports\Spotify\Request\Dto\NewPlaylistDto;

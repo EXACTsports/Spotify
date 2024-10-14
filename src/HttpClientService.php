@@ -8,7 +8,7 @@ use EXACTSports\Spotify\Response\ResponseInterface;
 use Exception;
 use GuzzleHttp\Client;
 
-class HttpClient
+class HttpClientService
 {
     private string $baseApiUrl = 'https://api.spotify.com';
     private string $baseAccountUrl = 'https://accounts.spotify.com';
