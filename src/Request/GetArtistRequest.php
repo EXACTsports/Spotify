@@ -5,6 +5,7 @@ namespace EXACTSports\Spotify\Request;
 use EXACTSports\Spotify\Client\SpotifyHeaders;
 use EXACTSports\Spotify\Facade\SpotifyHttpClient;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
+use EXACTSports\Spotify\Response\ResponseInterface;
 
 class GetArtistRequest implements RequestInterface
 {
@@ -17,6 +18,13 @@ class GetArtistRequest implements RequestInterface
     public function execute(): BaseSpotifyResponse
     {
         $endpoint = 'v1/artists/' . $this->id;
-        return SpotifyHttpClient::getApiCall($endpoint, $this->headers->toArray());
+        $response = SpotifyHttpClient::getApiCall($endpoint, $this->headers->toArray());
+        if ($response instanceof BaseSpotifyResponse) {
+            return $response;
+        } elseif ($response instanceof ResponseInterface) {
+            return new BaseSpotifyResponse($response->getData());
+        } else {
+            return new BaseSpotifyResponse([]);
+        }
     }
 }

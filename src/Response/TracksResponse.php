@@ -11,6 +11,11 @@ readonly class TracksResponse implements ResponseInterface
 
     public function getTracks(): array
     {
-        return  $this->tracks;
+        return $this->tracks;
+    }
+    
+    public function getData(): array
+    {
+        return $this->tracks;
     }
 }

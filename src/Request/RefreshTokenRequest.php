@@ -7,6 +7,7 @@ use EXACTSports\Spotify\Exceptions\SpotifyConnectionException;
 use EXACTSports\Spotify\Facade\SpotifyHttpClient;
 use EXACTSports\Spotify\Contracts\SpotifyUserInterface;
 use EXACTSports\Spotify\Response\RefreshTokenResponse;
+use EXACTSports\Spotify\Response\ResponseInterface;
 
 final readonly class RefreshTokenRequest implements RequestInterface
 {
@@ -32,7 +33,8 @@ final readonly class RefreshTokenRequest implements RequestInterface
 
         try {
             $response = SpotifyHttpClient::postAccountCall('api/token', $headers->toArray(), $formParams);
-            $newAccessToken = $response->getData()['access_token'] ?? null;
+            $responseData = $response instanceof ResponseInterface ? $response->getData() : [];
+            $newAccessToken = $responseData['access_token'] ?? null;
             $this->user->renewSpotifyToken($newAccessToken);
             return new RefreshTokenResponse($newAccessToken);
         } catch (\Throwable $throwable) {

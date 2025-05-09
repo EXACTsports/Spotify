@@ -18,6 +18,8 @@ use EXACTSports\Spotify\Request\SearchTrackRequest;
 use EXACTSports\Spotify\Request\TopItemsRequest;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
 use EXACTSports\Spotify\Response\TracksResponse;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class SpotifyClient
 {
@@ -42,7 +44,7 @@ class SpotifyClient
         } catch (SpotifyTokenExpiredException) {
             $data = (new SearchTrackRequest($requestDto, $this->getHeaders($this->getUser(), true)))->execute()->getData();
         }
-        return new TracksResponse(\Arr::get($data, 'tracks.items', []));
+        return new TracksResponse(Arr::get($data, 'tracks.items', []));
     }
 
     public function getArtist(string $id): BaseSpotifyResponse
@@ -83,8 +85,10 @@ class SpotifyClient
 
     private function getUser(): SpotifyUserInterface
     {
-        $user = \Auth::user();
-        /**@var SpotifyUserInterface $user * */
+        $user = Auth::user();
+        if (!$user instanceof SpotifyUserInterface) {
+            throw new SpotifyConnectionException("User doesn't implement SpotifyUserInterface");
+        }
         return $user;
     }
 
