@@ -13,4 +13,9 @@ final readonly class RefreshTokenResponse implements ResponseInterface
     {
         return $this->token;
     }
+    
+    public function getData(): array
+    {
+        return ['access_token' => $this->token];
+    }
 }

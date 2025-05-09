@@ -6,6 +6,7 @@ use EXACTSports\Spotify\Client\SpotifyHeaders;
 use EXACTSports\Spotify\Facade\SpotifyHttpClient;
 use EXACTSports\Spotify\Request\Dto\TopItemsRequestDto;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
+use EXACTSports\Spotify\Response\ResponseInterface;
 
 class TopItemsRequest implements RequestInterface
 {
@@ -20,6 +21,13 @@ class TopItemsRequest implements RequestInterface
         $endpoint = 'v1/me/top/tracks?limit=' . $this->requestDto->limit .
             '&offset=' . $this->requestDto->offset .
             '&time_range=' . $this->requestDto->timeRange;
-        return SpotifyHttpClient::getApiCall($endpoint, $this->headers->toArray());
+        $response = SpotifyHttpClient::getApiCall($endpoint, $this->headers->toArray());
+        if ($response instanceof BaseSpotifyResponse) {
+            return $response;
+        } elseif ($response instanceof ResponseInterface) {
+            return new BaseSpotifyResponse($response->getData());
+        } else {
+            return new BaseSpotifyResponse([]);
+        }
     }
 }

@@ -12,6 +12,7 @@ use EXACTSports\Spotify\Request\Dto\TopItemsRequestDto;
 use EXACTSports\Spotify\Request\Dto\TrackToPlaylistDto;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
 use EXACTSports\Spotify\Response\TracksResponse;
+use Illuminate\Support\Facades\Auth;
 
 class SpotifyService
 {
@@ -100,7 +101,7 @@ class SpotifyService
      */
     private function validateUserInterface(): void
     {
-        $user = \Auth::user();
+        $user = Auth::user();
         if (!$user instanceof SpotifyUserInterface) {
             throw new MissingSpotifyConfigurationException("User doesn't implement SpotifyUserInterface");
         }

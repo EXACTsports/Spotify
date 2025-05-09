@@ -6,6 +6,7 @@ use EXACTSports\Spotify\Client\SpotifyHeaders;
 use EXACTSports\Spotify\Facade\SpotifyHttpClient;
 use EXACTSports\Spotify\Request\Dto\SearchTrackRequestDto;
 use EXACTSports\Spotify\Response\BaseSpotifyResponse;
+use EXACTSports\Spotify\Response\ResponseInterface;
 
 class SearchTrackRequest implements RequestInterface
 {
@@ -20,6 +21,13 @@ class SearchTrackRequest implements RequestInterface
         $endpoint = 'v1/search?query=' . $this->requestDto->search .
             '&type=track&limit=' . $this->requestDto->limit .
             '&include_external=' . $this->requestDto->includeExternal;
-        return SpotifyHttpClient::getApiCall($endpoint, $this->headers->toArray());
+        $response = SpotifyHttpClient::getApiCall($endpoint, $this->headers->toArray());
+        if ($response instanceof BaseSpotifyResponse) {
+            return $response;
+        } elseif ($response instanceof ResponseInterface) {
+            return new BaseSpotifyResponse($response->getData());
+        } else {
+            return new BaseSpotifyResponse([]);
+        }
     }
 }

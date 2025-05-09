@@ -25,6 +25,7 @@ class HttpClientService
             return new BaseSpotifyResponse($content);
         } catch (Exception $e) {
             $this->handleException($e);
+            return new BaseSpotifyResponse([]);
         }
     }
 
