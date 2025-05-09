@@ -32,5 +32,10 @@
                 "EXACTSports\\Spotify\\SpotifyServiceProvider"
             ]
         }
+    },
+    "scripts": {
+        "stan": [
+            "vendor/bin/phpstan analyse --configuration=phpstan.neon.dist"
+        ]
     }
 }
